@@ -50,9 +50,8 @@ function App() {
 
 const renderArtists = () => {
   return artists.map(artist => (
-      <div key={artist.id}>
-          {artist.images.length ? <img width={"100%"} src={artist.images[0].url} alt=""/> : <div>No Image</div>}
-          {artist.name}
+      <div className="Artist-Gallery" key={artist.id}>
+          {artist.images.length ? <img className="Artist-Images" src={artist.images[0].url} alt=""/> : <div>No Image</div>}
       </div>
   ))
 }
@@ -61,18 +60,22 @@ const renderArtists = () => {
       <div className="App">
         <header className="App-header">
           <h1>Spotify React</h1>
-          {!token ?
-              <a 
+        </header>
+        <section className="MainSection">
+        {!token ?
+              <button className="LoginButton"><a className="LoginAnchor"
                 href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
               >
                 Login to Spotify
-              </a>
-              : <button onClick={logout}>Logout</button>}
-        </header>
-        <form onSubmit={searchArtists}>
-          <input type="text" onChange={e => setSearchKey(e.target.value)}/>
-          <button type={"submit"}>Search</button>
-        </form>
+              </a></button>
+              : <div className="Functionality">
+                  <form onSubmit={searchArtists}>
+                    <input className="SearchBar" type="text" onChange={e => setSearchKey(e.target.value)}/>
+                    <button type={"submit"}>Search</button>
+                  </form>
+                  <button onClick={logout}>Logout</button>
+                </div>}
+        </section>
         {renderArtists()}
       </div>
     );
